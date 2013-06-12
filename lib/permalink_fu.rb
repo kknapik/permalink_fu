@@ -1,11 +1,10 @@
-require File.join(File.dirname(__FILE__), 'permalink_fu', 'railtie')
-require File.join(File.dirname(__FILE__), 'permalink_fu', 'active_record')
+require 'permalink_fu/railtie'
+require 'permalink_fu/active_record'
 
 module PermalinkFu
   class << self
-    # This method does the actual permalink escaping.
     def escape(string)
-      result = I18n.transliterate(string.to_s)
+      result = ::I18n.transliterate(string.to_s)
       result.gsub!(/[^\x00-\x7F]+/, '') # Remove anything non-ASCII entirely (e.g. diacritics).
       result.gsub!(/[^\w_ \-]+/i,   '') # Remove unwanted chars.
       result.gsub!(/[ \-]+/i,      '-') # No more than one of the separator in a row.

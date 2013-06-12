@@ -1,7 +1,5 @@
 module PermalinkFu
-
   module ActiveRecord
-
     def self.included(base)
       base.extend(ClassMethods)
     end
@@ -110,7 +108,7 @@ module PermalinkFu
           end
         end
 
-        while ::ActiveRecord::Base.uncached{self.class.exists?(conditions)}
+        while ::ActiveRecord::Base.uncached{ self.class.exists?(conditions) }
           suffix = "-#{counter += 1}"
           conditions[1] = "#{base[0..limit-suffix.size-1]}#{suffix}"
           send("#{self.class.permalink_field}=", conditions[1])
@@ -123,6 +121,7 @@ module PermalinkFu
       end
 
       private
+
       def should_create_permalink?
         if self.class.permalink_field.blank?
           false
@@ -148,13 +147,10 @@ module PermalinkFu
         case method
         when Symbol
           send(method)
-        when String
-          eval(method, instance_eval { binding })
         when Proc, Method
           method.call(self)
         end
       end
     end
   end
-
 end

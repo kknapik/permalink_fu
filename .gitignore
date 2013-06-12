@@ -1,1 +1,13 @@
-nbproject/
+*.gem
+.bundle
+.config
+.yardoc
+Gemfile.lock
+_yardoc
+coverage
+doc/
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+tmp

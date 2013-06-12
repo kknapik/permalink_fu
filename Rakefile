@@ -1,13 +1,11 @@
-require 'rake'
+#!/usr/bin/env rake
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
 
-require 'bundler'
-Bundler::GemHelper.install_tasks
-
-require 'rake/testtask'
-Rake::TestTask.new do |t|
-  t.test_files = FileList['test/*_test.rb']
-  t.verbose = true
+desc 'Run all specs'
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.pattern = './spec/**/*_spec.rb'
+  t.rspec_opts = ['--profile', '--color']
 end
 
-desc 'Default: run test examples'
-task :default => 'test'
+task :default => :spec
